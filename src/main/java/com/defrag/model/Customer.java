@@ -1,7 +1,6 @@
 package com.defrag.model;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -42,7 +41,6 @@ public class Customer {
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
-    @RequiredArgsConstructor
     public enum Sex {
         MALE,
         FEMALE
