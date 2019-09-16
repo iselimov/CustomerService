@@ -16,6 +16,7 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository repository;
+    private final AddressCopier addressCopier;
 
     @Transactional(readOnly = true)
     @Override
@@ -35,7 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer existing = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Customer.class, id));
 
-        // todo
+        addressCopier.copy(newActualAddress, existing.getActualAddress());
 
         return repository.save(existing);
     }

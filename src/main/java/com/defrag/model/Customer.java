@@ -16,14 +16,17 @@ import javax.persistence.*;
 public class Customer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_gen")
+    @SequenceGenerator(name = "customer_id_gen", sequenceName = "customer_id_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "registered_address", nullable = false)
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "registered_address_id", nullable = false)
     private Address registeredAddress;
 
-    @Column(name = "actual_address", nullable = false)
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "actual_address_id", nullable = false)
     private Address actualAddress;
 
     @Column(name = "first_name")

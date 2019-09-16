@@ -1,5 +1,6 @@
 package com.defrag.model;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +12,14 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@Table(name = "customer")
+@Table(name = "address")
 @Entity
 public class Address {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_id_gen")
+    @SequenceGenerator(name = "address_id_gen", sequenceName = "address_id_seq", allocationSize = 1)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "country")
@@ -36,19 +40,22 @@ public class Address {
     @Column(name = "flat")
     private String flat;
 
-    @Column(name = "create")
+    @Column(name = "created")
+    @Setter(AccessLevel.PRIVATE)
     private LocalDateTime created;
 
-    @Column(name = "update")
-    private LocalDateTime updated;
+    @Column(name = "modified")
+    @Setter(AccessLevel.PRIVATE)
+    private LocalDateTime modified;
 
     @PrePersist
     private void prePersist() {
         created = LocalDateTime.now();
+        modified = created;
     }
 
     @PreUpdate
     private void preUpdate() {
-        updated = LocalDateTime.now();
+        modified = LocalDateTime.now();
     }
 }

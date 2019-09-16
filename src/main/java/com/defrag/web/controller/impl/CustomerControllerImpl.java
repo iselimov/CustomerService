@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(name = "/customers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/customers", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class CustomerControllerImpl implements CustomerController {
 
     private final CustomerService service;
